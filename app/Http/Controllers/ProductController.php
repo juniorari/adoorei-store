@@ -119,18 +119,10 @@ class ProductController extends Controller
      */
     public function getProductsBySearch(Request $request, int $number): LengthAwarePaginator
     {
-        $products = Product::where('name', 'LIKE', "%{$request->name}%")
+        return Product::where('name', 'LIKE', "%{$request->name}%")
             ->latest()
             ->paginate($number)
             ->appends($request->query());
-
-        if (isset($request->name)) {
-            if (count($products) > 0) return $products;
-
-            throw new ModelNotFoundException("Produto não encontrado");
-        };
-
-        return $products;
     }
 
 
