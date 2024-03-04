@@ -21,11 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/products', [ProductController::class, 'index']);
-Route::post('/product/create', [ProductController::class, 'store']);
-Route::get('/product/{id}', [ProductController::class, 'show']);
-Route::put('/product/update/{id}', [ProductController::class, 'update']);
-Route::delete('/product/{id}', [ProductController::class, 'destroy']);
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::post('/product/create', [ProductController::class, 'store'])->name('product.create');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::put('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
 Route::get('/sales', [SaleController::class, 'index']);
