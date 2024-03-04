@@ -18,7 +18,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'price' => currencyFormat($this->price),
+            'price' => "R$ " . number_format($this->price, 2, ',', '.'),
         ];
     }
 }

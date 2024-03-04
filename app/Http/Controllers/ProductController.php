@@ -13,13 +13,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProdutoController extends Controller
+class ProductController extends Controller
 {
     const PER_PAGE = 20;
-
-    const CREATE_SUCCESS = 'Produto foi criado com sucesso.', UPDATE_SUCCESS = 'Produto foi atualizado com sucesso.',
-        DELETE_SUCCESS = 'Produto foi apagado com sucesso.', FAILED = 'Falha no serviço. Tente novamente.';
-
+    const FAILED = 'Falha no serviço. Tente novamente.';
 
     public function index(Request $request)
     {
@@ -46,7 +43,7 @@ class ProdutoController extends Controller
             $product = (new ProductResource($product))
                 ->response()
                 ->getData(true);
-            return $this->response(Response::HTTP_CREATED, self::CREATE_SUCCESS, $product);
+            return $this->response(Response::HTTP_CREATED, 'Produto foi criado com sucesso', $product);
         }
 
         throw new ErrorException(self::FAILED, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -79,7 +76,7 @@ class ProdutoController extends Controller
             $product = (new ProductResource($product))
                 ->response()
                 ->getData(true);
-            return $this->response(Response::HTTP_OK, self::UPDATE_SUCCESS, $product);
+            return $this->response(Response::HTTP_OK, 'Produto foi atualizado com sucesso', $product);
         }
 
         throw new ErrorException(self::FAILED, Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -93,15 +90,10 @@ class ProdutoController extends Controller
             return $this->response(Response::HTTP_NOT_FOUND, 'Produto não encontrado', []);
         }
 
-
-        if ($product->delete()) return $this->response(Response::HTTP_OK, self::DELETE_SUCCESS);
+        if ($product->delete()) return $this->response(Response::HTTP_OK, 'Produto apagado com sucesso');
 
         throw new ErrorException(self::FAILED, Response::HTTP_INTERNAL_SERVER_ERROR);
 
-        $task = Product::findOrFail($id);
-        $task->delete();
-
-        return 204;
     }
 
 
@@ -115,20 +107,7 @@ class ProdutoController extends Controller
      */
     private function response(int $code, string $message, ?array $resource = []): JsonResponse
     {
-        $result = [
-            'code' => $code,
-            'message' => $message,
-            'data' => [],
-        ];
-
-        if (count($resource)) {
-            $result = array_merge($result, ['data' => $resource['data']]);
-
-            if (count($resource) > 1)
-                $result = array_merge($result, ['pages' => ['links' => $resource['links'], 'meta' => $resource['meta']]]);
-        }
-
-        return response()->json($result, $code);
+        return responseJson($code, $message, $resource);
     }
 
     /**
@@ -140,15 +119,15 @@ class ProdutoController extends Controller
      */
     public function getProductsBySearch(Request $request, int $number): LengthAwarePaginator
     {
-        $products = Product::where('name', 'LIKE', "%{$request->keyword}%")
+        $products = Product::where('name', 'LIKE', "%{$request->name}%")
             ->latest()
             ->paginate($number)
             ->appends($request->query());
 
-        if (isset($request->keyword)) {
+        if (isset($request->name)) {
             if (count($products) > 0) return $products;
 
-            throw new ModelNotFoundException("Product not found.");
+            throw new ModelNotFoundException("Produto não encontrado");
         };
 
         return $products;

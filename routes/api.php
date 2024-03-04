@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\SaleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +21,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/produtos', [ProdutoController::class, 'index']);
-Route::post('/produtos/create', [ProdutoController::class, 'store']);
-Route::get('/produtos/{id}', [ProdutoController::class, 'show']);
-Route::put('/produtos/update/{id}', [ProdutoController::class, 'update']);
-Route::delete('/produtos/{id}', [ProdutoController::class, 'destroy']);
+Route::get('/products', [ProductController::class, 'index']);
+Route::post('/product/create', [ProductController::class, 'store']);
+Route::get('/product/{id}', [ProductController::class, 'show']);
+Route::put('/product/update/{id}', [ProductController::class, 'update']);
+Route::delete('/product/{id}', [ProductController::class, 'destroy']);
 
 
+Route::get('/sales', [SaleController::class, 'index']);
+Route::post('/sale/create', [SaleController::class, 'create']);
+Route::get('/sale/{id}', [SaleController::class, 'show']);
+Route::delete('/sale/{id}', [SaleController::class, 'destroy']);
+Route::put('/sale/update/{id}', [SaleController::class, 'update']);
 
