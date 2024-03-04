@@ -58,3 +58,70 @@ A API possui os seguintes endpoints:
 - Consultar uma venda específica
 - Cancelar uma venda
 - Cadastrar novas produtos a uma venda
+
+### Instalação
+
+
+## Instalação
+
+Clone do projeto:
+
+```sh
+$ git clone git@github.com:juniorari/adoorei-store.git
+```
+
+Acessar a pasta do projeto:
+
+```sh
+$ cd adoorei-store
+```
+
+Criar e subir os containers:
+
+```sh
+$ docker-compose up --build -d
+```
+
+Entrar no container
+
+```sh
+$ docker exec -it adoorei_app bash
+```
+
+Baixar as dependências do composer
+```sh
+$ docker exec -it adoorei_app composer install -vvv
+```
+
+Copiar o arquivo `.env`
+
+```sh
+$ cp .env.example .env
+```
+
+Executar as migrations, no banco principal e no banco de teste.
+
+```sh
+$ docker exec -it adoorei_app php artisan migrate
+$ docker exec -it adoorei_app php artisan migrate --database=dbtest
+```
+
+Executar o seeder para criar alguns produtos
+
+```sh
+$ docker exec -it adoorei_app php artisan db:seed ProductSeeder
+```
+
+##### Executando os testes
+
+Para rodar os testes, execute o seguinte comando:
+
+```sh
+$ docker exec -it adoorei_app php artisan test
+```
+O projeto está rodando em [http://localhost:8080/](http://localhost:8080/).
+
+Foi disponibilizada uma [API no Postman](https://elements.getpostman.com/redirect?entityId=2889430-b1b9e3b4-138f-4df8-8ea1-a0dc3cac2bc5&entityType=collection) para acesso aos endpoints
+
+ 
+
