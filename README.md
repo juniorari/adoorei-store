@@ -59,8 +59,6 @@ A API possui os seguintes endpoints:
 - Cancelar uma venda
 - Cadastrar novas produtos a uma venda
 
-### Instalação
-
 
 ## Instalação
 
@@ -80,12 +78,6 @@ Criar e subir os containers:
 
 ```sh
 $ docker-compose up --build -d
-```
-
-Entrar no container
-
-```sh
-$ docker exec -it adoorei_app bash
 ```
 
 Baixar as dependências do composer
