@@ -113,7 +113,7 @@ $ docker exec -it adoorei_app php artisan test
 ```
 O projeto está rodando em [http://localhost:8080/](http://localhost:8080/).
 
-Foi disponibilizada uma [API no Postman](https://elements.getpostman.com/redirect?entityId=2889430-b1b9e3b4-138f-4df8-8ea1-a0dc3cac2bc5&entityType=collection) para acesso aos endpoints
-
+Foi disponibilizada uma [API no Postman](https://documenter.getpostman.com/view/2889430/2sA2xb7wLb#bc1a78d6-acac-474e-ab90-a36d28f5531a) para acesso aos endpoints
+OBS: Não esquecer de alterar a variável `{{base_url}}` para apontar ao projeto local
  
 
